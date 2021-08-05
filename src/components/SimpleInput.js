@@ -1,50 +1,33 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
-  const [nameIsValid, setNameIsValid] = useState(false);
   const [nameTouched, setNameTouched] = useState(false);
 
-  useEffect(() => {
-    if (nameIsValid) {
-      console.log("Valid");
-    }
-  }, [nameIsValid]);
+  const nameIsValid = enteredName.trim() !== "";
+  const inputNameIsNotValid = !nameIsValid && nameTouched;
 
-  const nameInputChangeHandler = (event) => {setEnteredName(event.target.value);
-  
-  if(event.target.value!==''){
-  setNameIsValid(true)
-  }
-  
-  }
+  const nameInputChangeHandler = (event) => {
+    setEnteredName(event.target.value);
+  };
 
-
-const nameInputBlurHandler = (event)=>{
-  setNameTouched(true)
-
-  if (enteredName.trim() === "") {
-    setNameIsValid(false);
-    
-  }
-
-}
+  const nameInputBlurHandler = (event) => {
+    setNameTouched(true);
+  };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
     setNameTouched(true);
 
-    if (enteredName.trim() === "") {
-      setNameIsValid(false);
+    if (!nameIsValid) {
       return;
     }
-    setNameIsValid(true);
+
     console.log(enteredName);
 
     setEnteredName("");
+    setNameTouched(false)
   };
-
-  const inputNameIsNotValid = !nameIsValid && nameTouched;
 
   const formClass = inputNameIsNotValid
     ? "form-control invalid"
