@@ -5,7 +5,6 @@ const SimpleInput = (props) => {
   const {
     value: enteredName,
     valueIsValid:nameIsValid,
-    touched: nameTouched,
     error: nameInputError,
     change: nameChangeHandler,
     Blur: nameBlurHandler,
@@ -41,8 +40,7 @@ const SimpleInput = (props) => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    nameTouched(true)
-    setEnteredEmailTouched(true);
+    
 
     if (!nameIsValid || !emailIsValid) {
       return;
